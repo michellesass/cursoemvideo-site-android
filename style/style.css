@@ -1,0 +1,219 @@
+/* Regras! Todas as regras do documento CSS são colocadas sempre no início do código com o @ */
+
+/* @charset "UTF-8" é encontrado do DOCTYPE do HTML5 e tem o mesmo propósito aqui: fazer com que o documento aceite acentuação. Já que estamos no Brasil e utilizamos 'ç' e vários tipos de acentos é importante sempre colocarmos essa regra. */
+
+/*@import é para importar fontes do Google Fonts (fontes externas não baixadas). Vantagem: não pesa seu site já que dessa forma a letra carrega utilizando a internet e o Google Fonts. Sem a internet a letra não vai carregar, mas estamos lidando com sites e sem internet não conseguimos acessar o site também. Então tudo certo!*/
+
+/* @font-face { font-family e src} é utilizada para colocar fontes baixadas, que já estão no seu computador, no documento CSS. Desvantagem: pesa mais o site. Só fazer isso quando seu cliente realemente quiser uma determinada fonte que ele comprou. Algo bem mais personalizado e específico. */
+
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@font-face {
+    font-family: 'Android' ;
+    src: url(../fontes/idroid.otf) format('opentype');
+    font-weight: normal;
+}
+
+
+:root{ /* Aplicação de variáveis */
+/* Por que as variáveis são importantes? Facilitam horrores a manutenção do seu site. Imagina: seu cliente pede para trocar a paleta de cores do site e você vai ter que ir linha por linha alterando as cores. Com as variáveis você pode colocar um determinado código para cada cor/letra etc e quando precisar fazer a manutenção é só alterar a variável. */
+    --cor0:#c5ebd6;
+    --cor1:#83e1ad;
+    --cor2:#3ddc84;
+    --cor3:#2fa866;
+    --cor4:#1a5c37;
+    --cor5:#063d1e;
+
+    --fonte-padrao: Arial, Verdana, Helvetica, sans-serif;
+    --fonte-destaque: 'Bebas Neue', sans-serif;
+    --fonte-android: 'Android', sans-serif;
+}
+
+* { /* Símbolo GLOBAL: pega simplesmente tudo do seu site. Aqui foi tirado a margem e o padding de TODOS os elementos. Ficaram todos grudados um no outro. Bem melhor de editar o site assim. Muitas vezes a margem e o padding das caixas que já vêm como padrão do navegador atrapalham muito a edição e você tem que ficar procurando de quem é aquele espaço que não está se unindo com a outra caixa que você tinha editado para ficarem unidas ou aquele bendito 1px do rodapé que fica parecendo uns 40px porque pega a margem do parágrafo que está nele com um espaço de 16px. */
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background-color: var(--cor0);
+    font-family: var(--fonte-padrao);
+}
+
+header {
+    background-image: linear-gradient(to bottom, var(--cor3), var(--cor5));
+    min-height: 150px; /* Altura mínima para ficar ok em todos os dispositivos. */
+    text-align: center; /* Se isso não funcionar tem que fazer um por um: diretamente no 
+    'header > h1' e no 'header > p' . Mas funcionou \o/ */
+    padding-top: 40px; /* Para não deixar o h1 tão grudado com colado com o navegador. */
+}
+
+header > h1{
+    color: white ;
+    font-family: var(--fonte-destaque);
+    font-size: 3em;
+    font-weight: normal; /* Utilizamos o 'normal' quando não queremos nenhuma aplicação a mais, por exemplo, o negrito padrão que vem com o h1. */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.26);
+}
+
+header > p{
+    color: white;
+    font-family: var(--fonte-padrao);
+    font-size: 1.2em;
+    max-width: 600px; /* Menos de 600px o texto tem que quebrar. */
+    margin: auto; /* Foi preciso colocar um 'margin: auto;' neste caso para o texto continuar centralizado, porque no momento em que foi colocado um 'max-widht' o texto se tornou um bloco, não mais um texto somente. */
+    margin-bottom: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.322);
+}
+
+nav{
+    background-color: var(--cor5);
+    padding: 10px;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.192);
+}
+
+nav > a {
+    color: var(--cor1);
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition-duration: 0.5s; /* Tempo de duração do efeito que aparece quando passamos o mouse por cima dos links do menu. Quando passar o mouse em cima o efeito vai demorar 0.5s (neste caso) para aparecer terminar sua transição. Particularmente não gostei, mas deixei por aprendizado já que não tem na apostila. */
+}
+
+nav > a:hover { /* Quando passar o mouse por cima dos links do menu... */
+    background-color: var(--cor3); /* ... a cor do fundo vai mudar... */
+    color: var(--cor4); /* ...e a cor da letra também vai mudar para dar um contraste com a cor de fundo que escolhemos. */
+}
+
+a.externo::after{ /* esse '::after' significa que tudo o que você colocar nesse comando vai ficar depois da palavra que estiver com a classe externo. Por exemplo, neste caso, todo link com a classe externo terá um emoji de corrente (simbolizando um link) depois do seu escrito: Dan Morrill 🔗 
+E o '00A0' já vimos que signfica 'espaço'. Vai dar um espaço entre a palavra e o emoji.*/
+    content: '\00A0\1F517';
+}
+
+main{
+    background-color: white;
+    min-width: 300px; /* Menos que isso o main mão se adequa à tela e aparece a barra de rolagem lateral (aquela que fica em baixo, não a padrão que rola de cima para baixo e vice-versa). Uma observação: Geralmente é utilizado a referência de 320px como mínimo, pois representa a tela dos celulares mais antigos, que tinham telas menores que os de hoje. Portanto é uma mínima mais segura, porque como a maioria tem celular mais recentes é certo que o conteúdo vai ficar certinho na tela.*/
+    max-width: 1000px; /* Máximo de tamanho em que o main se expande. Depois desse tamanho ele se mantém em 1000px de largura para não ficar aqueles textos super esticados que você tem que ficar movendo a cabeça de um lado para o outro para tentar ler o que está escrito. Tanto essa medida quando o 'min-width' são variáveis, de acordo com seu gosto/propósito. */
+    margin: auto; /* Centralizando o main independente do tamanho da tela.*/
+    margin-bottom: 30px; /* Para afastar o conteúdo principal do rodapé. */
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.418); /* Esse '10px' é o espalhamento. */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+main img{
+    width: 100%; /* Assim a imagem preenche todo o espaço das laterais (width) do main e não fica aquelas bordas brancas independente se o main expande ou diminui com o tamanho da tela do navegador. */
+}
+
+main img.pequena{
+    max-width: 350px; /* já que não tinha outra imagem do cara com um robozinho num tamanho menor, essa foi a sugestão do Guanabara para deixar a imagem sem sofrer uma distorção quando o tamanho da tela aumentar (asism ela não fica cheia de pixel) e não ficar pequena demais quando o tela for pequena. */
+    display: block; /* A imagem (img) por si só não é um bloco, por isso para fazer com que o 'margin: auto' funcionasse foi necessário transformar a imagem em um bloco utilizando o 'display: block'. */
+    margin: auto; /* Utilizada para deixar a imagem no centro do main. */
+}
+
+main h1{
+    color: var(--cor5);
+    font-family: var(--fonte-android);
+    font-weight: normal;
+    font-size: 1.8em; /* O 'em' vai sempre pegar como referência o tamanho de fonte padrão do navegador (geralmete é 16px) e vai multiplicar pelo valor que você escolher. Neste caso, o navegador está pegando o 16px e multiplicando por 1.8. Sendo assim, 'em' é uma medida relativa */
+}
+
+main h2{
+    color:var(--cor4);
+    font-family: var(--fonte-android);
+    font-size: 1.3em;
+    font-weight: normal;
+    background-image: linear-gradient(to right, var(--cor1), transparent); /* Usar o 'transparent' no final faz com que o degradê vá diminuindo de cor até sumir por completo. */
+    text-indent: 8px; /* Poderia ser o padding também, mas o Guanabara preferiu usar o indent. */
+}
+
+main p{ /* Quando é escrito um comando dessa forma significa todos os <p> em algum nível que estejam dentro do main, ou seja, pode ser o parágrafo que esteja dentro de um article que está dentro do main ou um parágrafo que esteja dentro de uma div, mas que está dentro do main. Enfim, para TODOS os parágrafos do main. Se eu coloco 'main > p' ele só vai considerar os parágrafos que estão diretamente como filhos do main, os parágrafos que estão dentro de um article ou de uma div não receberão o comando. */
+    margin: 15px 0px;
+    text-align: justify;
+    text-indent: 30px;
+    font-size: 1em;
+    line-height: 2em; /* Altura entre linhas */
+}
+
+main strong{
+    color: var(--cor4);
+    font-weight: bold;
+}
+
+main a{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--cor5);
+    background-color: var(--cor1);
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+
+main a:hover{
+    text-decoration: underline;
+    color: var(--cor4);
+}
+
+div.video{
+    background-color: var(--cor5);
+    margin: 0px -20px 30px -20px; /* Esse -20px veio da soma de 10px do artigo + 10px do main */
+    padding: 20px;
+    position: relative;
+    height: 0px;
+    padding-bottom: 56.6%; /* Essa medida está relacionada com uma borda preta nas laterais do vídeo. Aqui é só ir testando para ver qual o valor que some com essa borda ou no mínimo diminui ela. */
+}
+
+div.video > iframe{ /* Todo iframe que esteja dentro de uma div com classe vídeo. */
+    position: absolute; /* É possível colocar o top, left, height e width pelo vídeo estar numa posição absoluta. */
+    top: 5%; /*Espaço entre o vídeo e o início do background da div. */
+    left: 5%; /*Espaço entre o vídeo e a lateral esquerda do background da div. */
+    width: 90%; /* Para acompanhar o tamanho da largura do main. Esse valor deixa uma bordinha com a cor do background. */
+    height: 90%;
+}
+
+aside{
+    background-color: var(--cor1);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.281);
+}
+
+aside > h3{
+    background-color: var(--cor4);
+    color: white;
+    padding: 10px;
+    margin: -10px -10px 0px -10px; /* Margem negativa: está vazando para fora. Esse efeito fez com que dois componentes se encaixassem perfeitamente formando, visualmente, um bloco. Mas só visualmente mesmo, porque na real ainda são dois componentes seraparados, apenas bem encaixados. A margem encostou no background. */
+    border-radius: 10px 10px 0px 0px;
+}
+
+aside > ul{ /* Se colocasse só 'ul' seria todas as litas do documento e não só no aside. Não é o caso*/
+    list-style-type:'\2714\00A0\00A0'; /* 00A0 ou 0020 é o espaço, o NBSP, espaço sem quebra. Esse comando não é compatível com todo navegador. */
+    list-style-position: inside; /* Geralmente é outside para as bolinhas ficarem do lado de fora, mas neste caso elas tem que ficar do lado de dentro. */
+    columns: 2; /* Número de colunas. Não tem medida porque é uma contagem, não uma unidade de medida. Sempre é bom checar se a quantidade de colunas que você escolheu fica ok quando você espreme a página e deixa a tela pequena, porque às vezes as colunas ficam todas amontoadas, bem estranho! */
+
+}
+
+footer{
+    background-color: var(--cor5);
+    color: white;
+    text-align: center; /* Não precisou fazer um 'footer > p' para configurar o parágrafo do footer. É isso! =) A mesma coisa para o font-size e o padding. */
+    font-size: 0.8em;
+    padding: 5px;
+}
+
+footer a{
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    color: var(--cor1);
+}
